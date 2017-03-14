@@ -1,27 +1,11 @@
 import { Component } from '@angular/core';
+import {PostsService} from '../services/posts.service';
 
 @Component({
+  moduleId: module.id,
   selector: 'user',
-  template: `
-  <h1>Hello {{name}}</h1>
-  <p>Email: {{email}}</p>
-  <p> {{address.street}} {{address.city}} {{address.kanton}}</p>
-
-  <button (click)="toggleRWDdb()">{{showRWDdb ? "hide":"Show"}}</button>
-  <div *ngIf="showRWDdb">
-  <h3> RWD Databases</h3>
-  <ul>
-    <li *ngFor="let db of RWDdb">
-      {{db}}
-    </li>
-  </ul>
-  </div>
-
-  <form>
-    <label>Name: </label><br />
-    <input type="text" name="name" [(ngModel)]="name" />
-  </form>
-  `,
+  templateUrl:'user.component.html',
+  providers: [PostsService]
 })
 export class UserComponent  {
   name: string;
@@ -29,8 +13,9 @@ export class UserComponent  {
   address: address;
   RWDdb:string[];
   showRWDdb: boolean;
+  posts: post[];
 
-  constructor(){
+  constructor(private PostsService: PostsService){
     this.name = 'Marcus Hibell';
     this.email= 'John.Smith@gmail.com'
     this.address={
@@ -40,6 +25,10 @@ export class UserComponent  {
     }
     this.RWDdb =['CPRD','IPSOS','IMS'];
     this.showRWDdb = false;
+
+     this.PostsService.getPosts().subscribe(posts =>{
+       this.posts =posts;
+     });
   }
 
   toggleRWDdb(){
@@ -49,10 +38,25 @@ export class UserComponent  {
             this.showRWDdb = true;
           }
   }
+
+    addRWD(db:any){
+      this.RWDdb.push(db);
+    }
+
+    deleteRWD(i:any){
+      this.RWDdb.splice(i,1);
+    }
+
 }
 
 interface address{
   street: string;
   city: string;
   kanton: string;
+}
+
+interface post{
+  id: number;
+  title: string;
+  body: string;
 }

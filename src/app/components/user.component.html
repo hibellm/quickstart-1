@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<h1>Hello {{name}}</h1>
+<p>Email: {{email}}</p>
+<p> {{address.street}} {{address.city}} {{address.kanton}}</p>
+
+<button (click)="toggleRWDdb()">{{showRWDdb ? "hide":"Show"}}</button>
+<div *ngIf="showRWDdb">
+<h3> RWD Databases</h3>
+<ul>
+  <li *ngFor="let db of RWDdb; let i=index">
+    {{db}} <button (click)="deleteRWD(i)">X</button>
+  </li>
+</ul>
+<form (submit)="addRWD(db.value)">
+<label>Add Database: </label><br />
+<input type="text" #db /><br />
+</form>
+
+</div>
+
+<h3>Edit user details</h3>
+<form>
+  <label>Name: </label><br />
+  <input type="text" name="name" [(ngModel)]="name" /><br />
+  <label>Email: </label><br />
+  <input type="text" name="email" [(ngModel)]="email" /><br />
+  <label>Street: </label><br />
+  <input type="text" name="address.street" [(ngModel)]="address.street" /><br />
+  </form>
+  <hr>
+  <h3>Posts functionality</h3>
+  <div *ngFor ="let post of posts">
+    <h3>{{post.title}}</h3>
+    <i class="fa fa-bath" aria-hidden="true"></i>
+    <p>{{post.body}}</p>
+  </div>
