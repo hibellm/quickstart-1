@@ -3,13 +3,19 @@
 <p>Email: {{email}}</p>
 <p> {{address.street}} {{address.city}} {{address.kanton}}</p>
 
-<button (click)="toggleRWDdb()">{{showRWDdb ? "hide":"Show"}}</button>
+
+<h3>New database Requested</h3>
+<div class="btn-group">
+<button class="btn btn-success btn-block" (click)="toggleRWDdb()">{{showRWDdb ? "hide":"Show"}}</button>
+</div>
 <div *ngIf="showRWDdb">
 <h3> RWD Databases</h3>
 <ul>
-  <li *ngFor="let db of RWDdb; let i=index">
-    {{db}} <button (click)="deleteRWD(i)">X</button>
+<div class="btn-group">
+  <li class="h4" *ngFor="let db of RWDdb; let i=index">
+    {{db}} <button class="btn btn-primary btn-sm fa fa-pencil-square-o"(click)="deleteRWD(i)" title="Edit"></button>
   </li>
+  </div>
 </ul>
 <form (submit)="addRWD(db.value)">
 <label>Add Database: </label><br />
@@ -20,12 +26,16 @@
 
 <h3>Edit user details</h3>
 <form>
-  <label>Name: </label><br />
+  <label><strong>Name:</strong></label>
   <input type="text" name="name" [(ngModel)]="name" /><br />
-  <label>Email: </label><br />
+  <label>Email: </label>
   <input type="text" name="email" [(ngModel)]="email" /><br />
-  <label>Street: </label><br />
+  <label>Street: </label>
   <input type="text" name="address.street" [(ngModel)]="address.street" /><br />
+  <label>City: </label>
+  <input type="text" name="address.city" [(ngModel)]="address.city" /><br />
+  <label>Kanton: </label>
+  <input type="text" name="address.Kanton" [(ngModel)]="address.kanton" /><br />
   </form>
   <hr>
   <h3>Posts functionality</h3>
